@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   get '/jobs/new' => 'jobs#new'
   get '/pages' => 'pages#index'
   get '/home' => 'pages#show'
+  post '/users' => 'users#create'
+  get '/signup' => 'users#new'
 end
