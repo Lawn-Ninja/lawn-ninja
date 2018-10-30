@@ -1,0 +1,8 @@
+<h1>Jobs Near Me</h1>
+<% @jobs.each do |job| %>
+  <p>Date: <%= job[:date] %></p>
+  <p>Time: <%= job[:time] %></p>
+  <p>First Name: <%= job[:user][:first_name] %></p>
+  <p>Zip Code: <%= job[:user][:zip_code] %></p>
+  <input type="submit" value="Claim">
+<% end %>
