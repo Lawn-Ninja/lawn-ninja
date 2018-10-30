@@ -3,6 +3,10 @@ class JobsController < ApplicationController
     @jobs = jobs_payload
   end
 
+  def new
+    render 'new.html.erb'
+  end
+
   private
     def jobs_payload
       [
