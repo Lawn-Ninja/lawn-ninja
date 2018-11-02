@@ -53,3 +53,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # gem 'unirest'
 
 gem 'jwt'
+
+gem 'figaro'
+
+gem 'pry'
