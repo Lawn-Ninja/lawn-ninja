@@ -10,7 +10,7 @@ class UsersController < ApplicationController
       address: params[:address],
       city: params[:city],
       state: params[:state],
-      zip: params[:zip],
+      zip_code: params[:zip_code],
       phone_number: params[:phone_number],
       provider: params[:provider]
     )
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
     @user.address = params[:address] || @user.address
     @user.city = params[:city] || @user.city
     @user.state = params[:state] || @user.state
-    @user.zip = params[:zip] || @user.zip
+    @user.zip_code = params[:zip_code] || @user.zip_code
     @user.phone_number = params[:phone_number] || @user.phone_number
     @user.provider = params[:provider] || @user.provider
     @user.save
