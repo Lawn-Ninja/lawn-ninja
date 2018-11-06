@@ -4,6 +4,6 @@ class PagesController < ApplicationController
   end
 
   def show
-    render 'landing-page-not-logged.html'
+    render 'landing_page_not_logged.html'
   end
 end

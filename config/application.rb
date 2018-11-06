@@ -31,5 +31,6 @@ module LawnNinja
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+    config.secret_key_base = 'blipblapblup'
   end
 end
