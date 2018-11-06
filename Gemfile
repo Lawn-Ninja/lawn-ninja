@@ -57,3 +57,5 @@ gem 'jwt'
 gem 'figaro'
 
 gem 'pry'
+
+gem 'responders'
