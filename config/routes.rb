@@ -3,6 +3,12 @@ Rails.application.routes.draw do
   # verb "/urls" => "namespace/controllers#action"
   get '/jobs' => 'jobs#index'
   get '/jobs/new' => 'jobs#new'
+  get '/jobs/:id' => 'jobs#show'
+  post '/jobs' => 'jobs#create'
+  patch '/jobs/:id' => 'jobs#update'
+  
+  get '/my_jobs' => 'jobs#my_jobs'
+
   get '/pages' => 'pages#index'
   get '/home' => 'pages#show'
   post '/users' => 'users#create'
