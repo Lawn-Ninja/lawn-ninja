@@ -14,11 +14,6 @@ class JobsController < ApplicationController
   end
 
   def create
-    # @job = Job.new(
-    #   requested_time: params[:requested_time],
-    #   user_id: current_user.id,
-    #   status: "posted"
-    #   )
     @job = Job.new(job_params)
     @job.status = "posted"
     @job.user_id = current_user.id
