@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   delete '/logout' => 'sessions#destroy'
 
   get '/users' => 'users#index'
-  post '/users' => 'users#create'
+  post '/users' => 'users#create', as: "new_user"
   get '/users/:id' => 'users#show'
   patch '/users/:id' => 'users#update'
   delete '/users/:id' => 'users#destroy'

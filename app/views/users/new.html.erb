@@ -1,6 +1,53 @@
   <h1>Sign Up</h1>
-  <%= form_tag '/users', method: :post do %>
-    <div>Name<input type="text" name="name"></div>
+
+
+  <%= form_for @user do |f|%>
+    <div>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+    <div>
+      <%= f.label :address %>
+      <%= f.text_field :address %>
+    </div>
+    <div>
+      <%= f.label :city %>
+      <%= f.text_field :city %>
+    </div>
+    <div>
+      <%= f.label :state %>
+      <%= f.text_field :state %>
+    </div>
+    <div>
+      <%= f.label :zip_code %>
+      <%= f.text_field :zip_code %>
+    </div>
+    <div>
+      <%= f.label :phone_number %>
+      <%= f.text_field :phone_number %>
+    </div>
+    <div>
+      <%= f.label :email %>
+      <%= f.email_field :email %>
+    </div>
+    <div>
+      <%= f.label :password %>
+      <%= f.text_field :password %>
+    </div>
+    <div>
+      <%= f.label :password_confirmation %>
+      <%= f.text_field :password_confirmation %>
+    </div>
+    <div>
+      <%= f.submit "Create New User", class: "btn btn-primary btn-sm"%>
+    </div>
+  <% end %>
+  
+  
+
+  <!-- Deprecated Form -->
+  <%#= form_tag new_user_path(@user), method: :post do %>
+    <!-- <div>Name<input type="text" name="name"></div>
     <div>Address<input type="text" name="address"></div>
     <div>City<input type="text" name="city"></div>
     <div>State<input type="text" name="state"></div>
@@ -9,6 +56,6 @@
     <div>Email<input type="email" name="email"></div>
     <div>Password<input type="password" name="password"></div>
     <div>Re-enter Password<input type="password" name="password_confirmation"></div>
-    <div>Submit<input type="submit" value="Submit"></div>
-  <% end %>
+    <div>Submit<input type="submit" value="Submit"></div> -->
+  <%# end %>
   
