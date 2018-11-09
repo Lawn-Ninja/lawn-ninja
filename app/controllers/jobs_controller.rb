@@ -14,29 +14,30 @@ class JobsController < ApplicationController
   end
 
   def create
-    @job = Job.new(
-      requested_time: params[:requested_time],
-      user_id: current_user.id,
-      status: "posted"
-      )
-    @job.save
+    # @job = Job.new(
+    #   requested_time: params[:requested_time],
+    #   user_id: current_user.id,
+    #   status: "posted"
+    #   )
+    @job = Job.new(job_params)
+    @job.status = "posted"
+    @job.user_id = current_user.id
+    if @job.save
+      render json: {job: @job}
+    else
+      render json: {errors: @job.errors.full_messages}, status: :unprocessible_entity
+    end
 
-    render json: {job: @job}
   end
 
   def update
     @job = Job.find(params[:id])
 
-    @job.update(
-      requested_time: params[:requested_time] || @job.requested_time,
-      start_time: params[:start_time] || @job.start_time,
-      end_time: params[:end_time] || @job.end_time,
-      provider_id: params[:provider_id] || @job.provider_id,
-      status: params[:status] || @job.status
-      )
-
-    render json: {job: @job}
-    
+    if @job.update_attributes(job_params)
+      render json: {job: @job}
+    else
+      render json: {errors: @job.errors.full_messages}, status: :unprocessible_entity
+    end
   end
 
   def show
@@ -76,5 +77,9 @@ class JobsController < ApplicationController
             }
         }
       ]
+    end
+
+    def job_params
+      params.require(:job).permit(:requested_time, :start_time, :end_time, :provider_id, :status)
     end
 end
