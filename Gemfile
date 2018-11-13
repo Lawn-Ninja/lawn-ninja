@@ -59,3 +59,6 @@ gem 'figaro'
 gem 'pry'
 
 gem 'responders'
+
+gem "loofah", ">= 2.2.3"
+
