@@ -5,7 +5,26 @@ class JobsController < ApplicationController
   end
 
   def my_jobs
-    @jobs = current_user.jobs + Job.where(provider_id: current_user.id)
+    @jobs = {
+      "requested_jobs" => [],
+      "scheduled_jobs" => [],
+      "in_progress_jobs" => [],
+      "completed_jobs" => []
+    }
+    status_key = {
+      "posted" => "requested_jobs",
+      "claimed" => "scheduled_jobs",
+      "started" => "in_progress_jobs",
+      "completed" => "completed_jobs"
+    }
+    current_user.jobs.each do |job|
+      @jobs[status_key[job.status]] << job
+    end
+    jobs_as_provider = Job.where(provider_id: current_user.id)
+    jobs_as_provider.each do |job|
+      @jobs[job.status] << job
+    end
+    # @jobs = current_user.jobs + Job.where(provider_id: current_user.id)
     render json: {jobs: @jobs}
   end
 
