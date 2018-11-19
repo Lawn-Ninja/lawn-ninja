@@ -1,6 +1,8 @@
 class JobsController < ApplicationController
   def index
     @jobs = Job.all
+    response = HTTP.get("https://www.zipcodeapi.com/rest/#{ENV['API_KEY']}/distance.json/91101/91405/mile").body
+    p response.readpartial.delete('{"distance":').delete('}').to_f
     render json: {jobs: @jobs}
   end
 
