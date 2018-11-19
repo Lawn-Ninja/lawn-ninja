@@ -3,8 +3,10 @@ class JobsController < ApplicationController
     if current_user && current_user.provider
       jobs = Job.where(status: "posted")
       provider_zip = current_user.zip_code
-
-      @jobs = jobs.select { |job| distance_body = HTTP.get("https://www.zipcodeapi.com/rest/#{ENV['API_KEY']}/distance.json/#{provider_zip}/#{job.user.zip_code}/mile").body.readpartial.delete('{"distance":').delete('}').to_f < 100 }
+      radius_miles = 5
+      zip_codes = HTTP.get("https://www.zipcodeapi.com/rest/#{ENV['API_KEY']}/radius.json/#{provider_zip}/#{radius_miles}/miles").body.readpartial
+      p zip_codes
+      
       render json: {jobs: @jobs}
     else
       render json: {message: "Sorry, it looks like you aren't signed up to be a service provider."}
