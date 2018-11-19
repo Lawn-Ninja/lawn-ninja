@@ -1,11 +1,23 @@
 class JobsController < ApplicationController
   def index
     if current_user && current_user.provider
-      jobs = Job.where(status: "posted")
+      @jobs = []
       provider_zip = current_user.zip_code
       radius_miles = 5
-      zip_codes = HTTP.get("https://www.zipcodeapi.com/rest/#{ENV['API_KEY']}/radius.json/#{provider_zip}/#{radius_miles}/miles").body.readpartial
-      p zip_codes
+
+      zip_codes = HTTP.get("https://www.zipcodeapi.com/rest/#{ENV['API_KEY']}/radius.json/#{provider_zip}/#{radius_miles}/mile?minimal").body.to_s.delete('{\"zip_codes\":[').delete(']}').split(',')
+      # zip_codes = ["91803", "91899", "91802", "91804", "91841", "91896", "91801", "91776", "91778", "91030", "91031", "90042", "91775", "90050", "91189", "91118", "91108", "91184", "91115", "91125", "91126", "90041", "91106", "91105", "91123", "91124", "91129", "91102", "91182", "91188", "91116", "91117", "91101", "91110", "91131", "91191", "91121", "91107", "91226", "91109", "91114", "91206", "91104", "91103", "91199", "91003", "91001", "91012"]
+
+      zip_codes.each do |zc|
+        users = User.where("zip_code = '#{zc}'")
+        users.each do |user|
+          user.jobs.each do |job|
+            if job.status == "posted"
+              @jobs << job
+            end
+          end
+        end
+      end
       
       render json: {jobs: @jobs}
     else
