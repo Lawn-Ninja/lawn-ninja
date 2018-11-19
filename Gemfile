@@ -64,3 +64,5 @@ gem 'responders'
 
 gem "loofah", ">= 2.2.3"
 
+gem "http"
+
