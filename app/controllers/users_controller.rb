@@ -49,7 +49,9 @@ class UsersController < ApplicationController
     # @user.phone_number = params[:phone_number] || @user.phone_number
     # @user.provider = params[:provider] || @user.provider
     # @user.save
-    respond_with(@user)
+    # respond_with(@user)
+    # p @user
+    render json: {user: @user}
   end
 
   def destroy
