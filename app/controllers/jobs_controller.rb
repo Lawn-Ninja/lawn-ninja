@@ -1,7 +1,11 @@
 class JobsController < ApplicationController
   def index
-    @jobs = Job.all
-    render json: {jobs: @jobs}
+    if current_user && current_user.provider
+      @jobs = Job.jobs_near_me(current_user.zip_code) 
+      render json: {jobs: @jobs}
+    else
+      render json: {message: "Sorry, it looks like you aren't signed up to be a service provider."}
+    end
   end
 
   def my_jobs
