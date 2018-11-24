@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   # STEP 1: A ROUTE triggers a controller action
   # verb "/urls" => "namespace/controllers#action"
-  get '/jobs' => 'jobs#index'
+  get '/jobs' => 'jobs#jobs_near_me' #index
   get '/jobs/new' => 'jobs#new'
   get '/jobs/:id' => 'jobs#show'
   post '/jobs' => 'jobs#create'
