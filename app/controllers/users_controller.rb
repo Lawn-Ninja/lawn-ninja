@@ -38,7 +38,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    user_id = current_user.id
+    user_id = params[:id]
     @user = User.find_by_id(user_id).tap { |user| user.update!(user_params)
     }
     # @user.email = params[:email] || @user.email
