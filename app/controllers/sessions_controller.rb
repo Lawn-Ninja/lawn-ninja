@@ -23,7 +23,8 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:jwt] = nil
-    flash[:success] = 'Successfully logged out!'
-    redirect_to '/login'
+    # flash[:success] = 'Successfully logged out!'
+    # redirect_to '/login'
+    render json: {}
   end
 end
