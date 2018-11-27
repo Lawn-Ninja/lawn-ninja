@@ -38,7 +38,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    user_id = current_user.id
+    user_id = params[:id]
     @user = User.find_by_id(user_id).tap { |user| user.update!(user_params)
     }
     # @user.email = params[:email] || @user.email
@@ -49,7 +49,9 @@ class UsersController < ApplicationController
     # @user.phone_number = params[:phone_number] || @user.phone_number
     # @user.provider = params[:provider] || @user.provider
     # @user.save
-    respond_with(@user)
+    # respond_with(@user)
+    # p @user
+    render json: {user: @user}
   end
 
   def destroy

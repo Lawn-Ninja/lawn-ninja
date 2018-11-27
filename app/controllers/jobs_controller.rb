@@ -33,7 +33,7 @@ class JobsController < ApplicationController
     end
     jobs_as_provider = Job.where(provider_id: current_user.id)
     jobs_as_provider.each do |job|
-      @jobs[job.status] << job
+      @jobs[status_key[job.status]] << job
     end
     # @jobs = current_user.jobs + Job.where(provider_id: current_user.id)
     render json: {jobs: @jobs}
