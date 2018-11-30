@@ -1,9 +1,13 @@
-# User.destroy_all
-# Job.destroy_all
-# User.create(
-#   email: "test@test.com",
-#   password: "password"
-# )
+User.destroy_all
+Job.destroy_all
+User.create(
+  name: "Test User",
+  email: "test@test.com",
+  password: "password",
+  password_confirmation: "password",
+  zip_code: 91101,
+  provider: true
+)
 
 Faker::Config.locale = 'en-US'
 
@@ -26,7 +30,7 @@ statuses = ["posted", "claimed", "started", "completed"]
 user_ids = User.all.ids
 provider_ids = User.where(provider: true).ids
 
-500.times do
+50000.times do
   # user_id, status, requested_time
   job_instance = Job.new(
     user_id: user_ids.sample,
