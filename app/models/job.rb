@@ -23,4 +23,8 @@ class Job < ApplicationRecord
     end
     jobs
   end
+
+  def provider
+    provider_id && User.find(provider_id)
+  end
 end

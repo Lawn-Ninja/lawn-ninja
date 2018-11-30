@@ -1,17 +1,10 @@
 class JobsController < ApplicationController
   def jobs_near_me
-    p current_user
     if current_user && current_user.provider
       @jobs = Job.jobs_near_me(current_user.zip_code) 
-      render json: {jobs: @jobs}
-      p "*" * 20
-      p @jobs
-      p "*" * 20
+      render "index.json.jbuilder"
     else
       render json: {jobs: []}
-      p "*" * 20
-      p "nope"
-      p "*" * 20
     end
   end
 
@@ -32,8 +25,7 @@ class JobsController < ApplicationController
       @jobs[status_key[job.status]] << job
     end
     jobs_as_provider = Job.where(provider_id: current_user.id)
-    jobs_as_provider.each do |job|
-      @jobs[status_key[job.status]] << job
+    jobs_as_provider.each do |job| @jobs[status_key[job.status]] << job
     end
     # @jobs = current_user.jobs + Job.where(provider_id: current_user.id)
     render json: {jobs: @jobs}
@@ -67,8 +59,7 @@ class JobsController < ApplicationController
 
   def show
     @job = Job.find(params[:id])
-
-    render json: {job: @job}
+    render 'show.json.jbuilder'
   end
 
   private

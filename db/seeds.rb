@@ -2,7 +2,10 @@
 # Job.destroy_all
 # User.create(
 #   email: "test@test.com",
-#   password: "password"
+#   password: "password",
+#   password_confirmation: "password",
+#   zip_code: 91101,
+#   provider: true
 # )
 
 Faker::Config.locale = 'en-US'
