@@ -2,7 +2,7 @@ class Job < ApplicationRecord
   belongs_to :user
   validates :requested_time, presence: true
 
-  def self.jobs_near_me(provider_zip)
+  def self.jobs_near_me(provider_zip, current_user_id)
     jobs = []
     radius_miles = 5
 
@@ -13,9 +13,11 @@ class Job < ApplicationRecord
       if int_zc > 0 && int_zc < 100000
         users = User.where("zip_code = '#{int_zc.to_s}'")
         users.each do |user|
-          user.jobs.each do |job|
-            if job.status == "posted"
-              jobs << job
+          if user.id != current_user_id
+            user.jobs.each do |job|
+              if job.status == "posted"
+                jobs << job
+              end
             end
           end
         end
