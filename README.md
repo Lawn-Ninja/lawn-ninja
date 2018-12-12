@@ -1,41 +1,56 @@
-To Test (`jobs-near-me-logic` branch):
-
-1) `git pull origin jobs-near-me-logic`
-
-2) `bundle`
-
-3) `bundle exec figaro install`
-
-4) Go to `https://www.zipcodeapi.com/Register` and register for an API key; use a real email
-
-5) Confirm your email address
-
-6) In `config/application.yml`, add the line `API_KEY: "<your API key>"`
-
-7) pull down the `pass-jwt` branch to test with React or use Insomnia to test the `GET '/jobs'` route, passing a jwt in the Header.
-
-
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+**To run Lawn Ninja API**
 
-Things you may want to cover:
+1) Terminal: `git clone https://github.com/Lawn-Ninja/lawn-ninja.git && cd lawn-ninja`
 
-* Ruby version
+2) Terminal: `rails db:create && rails db:migrate && rails db:seed`; this may take a few minutes
 
-* System dependencies
+3) Terminal: `bundle`
 
-* Configuration
+4) Terminal: `bundle exec figaro install`
 
-* Database creation
+5) Terminal: `touch config/master.key && echo '<MASTER KEY>' >>./config/master.key`; the master key can currently be obtained from anyone on the development team
 
-* Database initialization
+6) Go to `https://www.zipcodeapi.com/Register` and register for an API key; use a real email
 
-* How to run the test suite
+7) Confirm your email address
 
-* Services (job queues, cache servers, search engines, etc.)
+8) In `config/application.yml`, add the line `API_KEY: "<your API key>"`
 
-* Deployment instructions
+9) `rails s -p 3001`
 
-* ...
+
+**Version Info**
+
+Ruby version: 2.5.1
+
+
+**Significant Gemfile Modifications**
+```ruby
+# Authentication and Security
+gem 'jwt'
+gem 'bcrypt', '~> 3.1.7'
+gem 'figaro'
+
+# Debugging & Clean Code
+gem 'pry'
+gem 'responders'
+
+# Web Requests
+gem "loofah", ">= 2.2.3"
+gem "rack", ">= 2.0.6"
+gem 'rack-cors', :require => 'rack/cors'
+gem "http"
+```
+
+The unirest gem was removed due to its dependency on an insecure version of the rack gem. The http gem functions in much the same way as unirest.
+
+
+**Significant Technologies**
+* http gem
+* ZipCodeAPI
+
+
+**Other Concepts**
+* Strong Params
