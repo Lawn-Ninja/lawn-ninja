@@ -6,23 +6,19 @@ Rails.application.routes.draw do
   get '/jobs/:id' => 'jobs#show'
   post '/jobs' => 'jobs#create'
   patch '/jobs/:id' => 'jobs#update'
-  
   get '/my_jobs' => 'jobs#my_jobs'
 
-  get '/pages' => 'pages#index'
-  get '/home' => 'pages#show'
-  get '/signup' => 'users#new'
-  post '/sessions' => 'sessions#create'
+  # consumer profile info
+  resources :consumers, except: [:new, :edit]
 
-  get '/login' => 'sessions#new'
-  post '/login' => 'sessions#create'
-  delete '/logout' => 'sessions#destroy'
+  # provider profile info
+  resources :providers, except: [:new, :edit]
 
-  get '/users' => 'users#index'
-  post '/users' => 'users#create', as: "new_user"
-  get '/users/:id' => 'users#show'
-  patch '/users/:id' => 'users#update'
-  delete '/users/:id' => 'users#destroy'
+  # consumer sessions login/logout
+  post '/consumer_login' => 'consumer_sessions#create'
+  delete '/consumer_logout' => 'consumer_sessions#destroy'
 
-
+  # provider sessions login/logout
+  post '/provider_login' => 'provider_sessions#create'
+  delete '/provider_logout' => 'provider_sessions#destroy'
 end
