@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   #   end
   end
 
-  def current_user
+  def current_consumer
     if request.headers['Authorization'].present?
       token = request.headers['Authorization'].split(' ').last
       begin
@@ -21,17 +21,17 @@ class ApplicationController < ActionController::Base
           true,
           { algorithm: 'HS256' }
         )
-        User.find_by(id: decoded_token[0]["user"])
+        Consumer.find_by(id: decoded_token[0]["consumer"])
       rescue JWT::ExpiredSignature
         nil
       end
     end
   end
 
-  helper_method :current_user
+  helper_method :current_consumer
 
-  def authenticate_user
-    unless current_user
+  def authenticate_consumer
+    unless current_consumer
       render json: {}, status: :unauthorized
     end
   end

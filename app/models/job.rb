@@ -1,8 +1,8 @@
 class Job < ApplicationRecord
-  belongs_to :user
+  belongs_to :consumer
   validates :requested_time, presence: true
 
-  def self.jobs_near_me(provider_zip, current_user_id)
+  def self.jobs_near_me(provider_zip, current_consumer_id)
     jobs = []
     radius_miles = 5
 
@@ -11,10 +11,10 @@ class Job < ApplicationRecord
     zip_codes.each do |zc|
       int_zc = zc.to_i
       if int_zc > 0 && int_zc < 100000
-        users = User.where("zip_code = '#{int_zc.to_s}'")
-        users.each do |user|
-          if user.id != current_user_id
-            user.jobs.each do |job|
+        consumers = Consumer.where("zip_code = '#{int_zc.to_s}'")
+        consumers.each do |consumer|
+          if consumer.id != current_consumer_id
+            consumer.jobs.each do |job|
               if job.status == "posted"
                 jobs << job
               end
@@ -27,6 +27,6 @@ class Job < ApplicationRecord
   end
 
   def provider
-    provider_id && User.find(provider_id)
+    provider_id && Provider.find(provider_id)
   end
 end
