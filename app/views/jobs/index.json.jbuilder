@@ -1,7 +1,7 @@
 json.array! @jobs do |job|
   json.id job.id
-  json.user_id job.user_id
-  json.user job.user
+  json.consumer_id job.consumer_id
+  json.consumer job.consumer
   json.provider_id job.provider_id
   json.start_time job.start_time
   json.end_time job.end_time
