@@ -2,10 +2,10 @@ Rails.application.routes.draw do
   # STEP 1: A ROUTE triggers a controller action
   # verb "/urls" => "namespace/controllers#action"
   get '/jobs' => 'jobs#jobs_near_me' #index
-  get '/jobs/new' => 'jobs#new'
   get '/jobs/:id' => 'jobs#show'
   post '/jobs' => 'jobs#create'
   patch '/jobs/:id' => 'jobs#update'
+  delete '/jobs/:id' => 'jobs#destroy'
   get '/my_jobs' => 'jobs#my_jobs'
 
   # consumer profile info
