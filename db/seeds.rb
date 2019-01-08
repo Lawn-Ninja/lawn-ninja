@@ -1,5 +1,5 @@
-User.destroy_all
-Job.destroy_all
+# User.destroy_all
+# Job.destroy_all
 User.create(
   name: "Test User",
   email: "test@test.com",
@@ -20,7 +20,7 @@ Faker::Config.locale = 'en-US'
     address: Faker::Address.street_address,
     city: Faker::Address.city,
     state: Faker::Address.state_abbr,
-    zip_code: Faker::Address.zip_code,
+    zip_code: 60652,
     phone_number: Faker::PhoneNumber.cell_phone,
     provider: (rand(1..2) == 1)
   )
@@ -30,7 +30,7 @@ statuses = ["posted", "claimed", "started", "completed"]
 user_ids = User.all.ids
 provider_ids = User.where(provider: true).ids
 
-50000.times do
+500000.times do
   # user_id, status, requested_time
   job_instance = Job.new(
     user_id: user_ids.sample,
