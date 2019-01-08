@@ -11,7 +11,7 @@ class ProviderSessionsController < ApplicationController
         Rails.application.credentials.fetch(:secret_key_base), # the secret key
         'HS256' # the encryption algorithm
       )
-      render json: { jwt: jwt, email: provider.email, provider_id: provider.id, status: :created }
+      render json: { jwt: jwt, email: provider.email, provider_id: provider.id }, status: :created
     else
       render json: {}
     end
