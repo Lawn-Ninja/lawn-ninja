@@ -2,7 +2,7 @@ class JobsController < ApplicationController
   def jobs_near_me
     p "in jobs_near_me"
     if current_provider
-      # p current_user
+      # p current_provider
       @jobs = Job.jobs_near_me(current_provider.zip_code, current_provider.id) 
       # p @jobs
       render "index.json.jbuilder"
