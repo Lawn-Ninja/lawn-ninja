@@ -89,10 +89,20 @@ let ProviderLoginPage = {
   }
 };
 
+var ProviderLogoutPage = {
+  template: "<h1>Logout</h1>",
+  created: function() {
+    axios.defaults.headers.common["Authorization"] = undefined;
+    localStorage.removeItem("jwt");
+    axios.delete('/provider_logout');
+    router.push("/");
+  }
+};
 
 let router = new VueRouter({
   routes: [ 
     { path: "/provider_login", component: ProviderLoginPage },
+    { path: "/provider_logout", component: ProviderLogoutPage },
   ], 
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };
