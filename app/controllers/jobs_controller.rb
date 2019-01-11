@@ -1,10 +1,10 @@
 class JobsController < ApplicationController
   def jobs_near_me
     p "in jobs_near_me"
-    if current_user && current_user.provider
-      p current_user
-      @jobs = Job.jobs_near_me(current_user.zip_code, current_user.id) 
-      p @jobs
+    if current_provider
+      # p current_provider
+      @jobs = Job.jobs_near_me(current_provider.zip_code, current_provider.id) 
+      # p @jobs
       render "index.json.jbuilder"
     else
       render json: {jobs: []}
@@ -41,7 +41,7 @@ class JobsController < ApplicationController
   def create
     @job = Job.new(job_params)
     @job.status = "posted"
-    @job.user_id = current_user.id
+    @job.consumer_id = current_consumer.id
     if @job.save
       render json: {job: @job}
     else
@@ -66,37 +66,6 @@ class JobsController < ApplicationController
   end
 
   private
-    def jobs_payload
-      [
-        {
-          date: Time.now,
-          time: Time.now,
-          user:
-            {
-              first_name: "Bob",
-              zip_code: 10000
-            }
-        },
-        {
-          date: Time.now,
-          time: Time.now,
-          user:
-            {
-              first_name: "Abby",
-              zip_code: 20000
-            }
-        },
-        {
-          date: Time.now,
-          time: Time.now,
-          user:
-            {
-              first_name: "Susie",
-              zip_code: 30000
-            }
-        }
-      ]
-    end
 
     def job_params
       params.require(:job).permit(:requested_time, :start_time, :end_time, :provider_id, :status)
