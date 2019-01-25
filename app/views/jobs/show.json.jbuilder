@@ -1,5 +1,6 @@
 json.id @job.id
 json.consumer_id @job.consumer_id
+json.consumer @job.consumer
 json.consumer_name @job.consumer.first_name
 json.provider_id @job.provider_id
 json.provider_name @job.provider && @job.provider.first_name
