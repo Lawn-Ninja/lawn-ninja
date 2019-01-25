@@ -2,7 +2,7 @@ class JobsController < ApplicationController
   def jobs_near_me
     p "in jobs_near_me"
     if current_provider
-      # p current_user
+      # p current_provider
       @jobs = Job.jobs_near_me(current_provider.zip_code, current_provider.id) 
       # p @jobs
       render "index.json.jbuilder"
@@ -24,11 +24,17 @@ class JobsController < ApplicationController
       "started" => "in_progress_jobs",
       "completed" => "completed_jobs"
     }
-    current_user.jobs.each do |job|
-      @jobs[status_key[job.status]] << job
+
+    if current_consumer
+      current_consumer.jobs.each do |job|
+        @jobs[status_key[job.status]] << job
+      end
     end
-    jobs_as_provider = Job.where(provider_id: current_user.id)
-    jobs_as_provider.each do |job| @jobs[status_key[job.status]] << job
+    
+    if current_provider
+      current_provider.jobs.each do |job|
+        @jobs[status_key[job.status]] << job
+      end
     end
     # @jobs = current_user.jobs + Job.where(provider_id: current_user.id)
     render json: {jobs: @jobs}
