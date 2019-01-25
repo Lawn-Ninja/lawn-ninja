@@ -31,7 +31,8 @@ Faker::Config.locale = 'en-US'
 
 5000.times do
   Consumer.create(
-    name: Faker::Name.name,
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
     email: Faker::Internet.email,
     password: "password",
     password_confirmation: "password",
@@ -48,7 +49,8 @@ zip_codes_near_pasadena = ["91803", "91899", "91802", "91804", "91841", "91896",
 
 20.times do
   Consumer.create(
-    name: Faker::Name.name,
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
     email: Faker::Internet.email,
     password: "password",
     password_confirmation: "password",
