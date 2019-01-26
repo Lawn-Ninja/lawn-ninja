@@ -25,13 +25,15 @@ class JobsController < ApplicationController
       "completed" => "completed_jobs"
     }
 
-    if current_consumer
+    if params[:job][:user_type] == "consumer"
       current_consumer.jobs.each do |job|
         @jobs[status_key[job.status]] << job
       end
     end
-    
-    if current_provider
+    p "*" * 50
+    p params
+    p "*" * 50
+    if params[:job][:user_type] == "provider"
       current_provider.jobs.each do |job|
         @jobs[status_key[job.status]] << job
       end
