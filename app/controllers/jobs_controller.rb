@@ -1,9 +1,9 @@
 class JobsController < ApplicationController
   def jobs_near_me
-    p "in jobs_near_me"
+    # p "in jobs_near_me"
     if current_provider
       # p current_provider
-      @jobs = Job.jobs_near_me(current_provider.zip_code, current_provider.id) 
+      @jobs = Job.jobs_near_me(current_provider.zip_code) 
       # p @jobs
       render "index.json.jbuilder"
     else
@@ -24,11 +24,19 @@ class JobsController < ApplicationController
       "started" => "in_progress_jobs",
       "completed" => "completed_jobs"
     }
-    current_user.jobs.each do |job|
-      @jobs[status_key[job.status]] << job
+
+    if params[:job][:user_type] == "consumer"
+      current_consumer.jobs.each do |job|
+        @jobs[status_key[job.status]] << job
+      end
     end
-    jobs_as_provider = Job.where(provider_id: current_user.id)
-    jobs_as_provider.each do |job| @jobs[status_key[job.status]] << job
+    p "*" * 50
+    p params
+    p "*" * 50
+    if params[:job][:user_type] == "provider"
+      current_provider.jobs.each do |job|
+        @jobs[status_key[job.status]] << job
+      end
     end
     # @jobs = current_user.jobs + Job.where(provider_id: current_user.id)
     render json: {jobs: @jobs}
@@ -68,6 +76,6 @@ class JobsController < ApplicationController
   private
 
     def job_params
-      params.require(:job).permit(:requested_time, :start_time, :end_time, :provider_id, :status)
+      params.require(:job).permit(:requested_time, :start_time, :end_time, :provider_id, :status, :user_type)
     end
 end
