@@ -1,6 +1,7 @@
 # Consumer.destroy_all
 # Provider.destroy_all
 # Job.destroy_all
+
 Consumer.create(
   first_name: "Test",
   last_name: "Consumer",
@@ -66,7 +67,8 @@ statuses = ["posted", "claimed", "started", "completed"]
 consumer_ids = Consumer.all.ids
 provider_ids = Provider.all.ids
 
-500000.times do
+# 500000.times do
+10000.times do
   # user_id, status, requested_time
   job_instance = Job.new(
     consumer_id: consumer_ids.sample,
