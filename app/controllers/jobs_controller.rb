@@ -41,9 +41,12 @@ class JobsController < ApplicationController
     # p "*" * 50
     if params[:job][:user_type] == "provider"
       p "YEP, PROVIDER"
+      # p current_provider.jobs
       current_provider.jobs.each do |job|
         @jobs[status_key[job.status]] << job
       end
+      p "@jobs"
+      p @jobs
     end
     # @jobs = current_user.jobs + Job.where(provider_id: current_user.id)
     render json: {jobs: @jobs}
