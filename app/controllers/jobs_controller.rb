@@ -49,7 +49,8 @@ class JobsController < ApplicationController
       p @jobs
     end
     # @jobs = current_user.jobs + Job.where(provider_id: current_user.id)
-    render json: {jobs: @jobs}
+    # render json: {jobs: @jobs}
+    render "my_jobs.json.jbuilder"
   end
 
   def new
