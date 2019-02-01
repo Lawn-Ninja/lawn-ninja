@@ -24,32 +24,17 @@ class JobsController < ApplicationController
       "started" => "in_progress_jobs",
       "completed" => "completed_jobs"
     }
-    p "*" * 50
-    p "consumer?"
-    p params[:job][:user_type] == "consumer"
-    p "provider?"
-    p params[:job][:user_type] == "provider"
 
     if params[:job][:user_type] == "consumer"
-      p "YEP, CONSUMER"
       current_consumer.jobs.each do |job|
         @jobs[status_key[job.status]] << job
       end
     end
-    # p "*" * 50
-    # p params
-    # p "*" * 50
     if params[:job][:user_type] == "provider"
-      p "YEP, PROVIDER"
-      # p current_provider.jobs
       current_provider.jobs.each do |job|
         @jobs[status_key[job.status]] << job
       end
-      p "@jobs"
-      p @jobs
     end
-    # @jobs = current_user.jobs + Job.where(provider_id: current_user.id)
-    # render json: {jobs: @jobs}
     render "my_jobs.json.jbuilder"
   end
 
