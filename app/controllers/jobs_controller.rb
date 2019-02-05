@@ -58,7 +58,7 @@ class JobsController < ApplicationController
     @job = Job.find(params[:id])
 
     if @job.update_attributes(job_params)
-      render json: {job: @job}
+      render 'show.json.jbuilder'
     else
       render json: {errors: @job.errors.full_messages}, status: :unprocessible_entity
     end
