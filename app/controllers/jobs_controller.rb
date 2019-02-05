@@ -58,7 +58,7 @@ class JobsController < ApplicationController
     @job = Job.find(params[:id])
 
     if @job.update_attributes(job_params)
-      render json: {job: @job}
+      render 'show.json.jbuilder'
     else
       render json: {errors: @job.errors.full_messages}, status: :unprocessible_entity
     end
@@ -67,6 +67,12 @@ class JobsController < ApplicationController
   def show
     @job = Job.find(params[:id])
     render 'show.json.jbuilder'
+  end
+
+  def destroy
+    @job = Job.find(params[:id])
+    @job.destroy
+    render json: {}
   end
 
   private
