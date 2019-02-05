@@ -69,6 +69,12 @@ class JobsController < ApplicationController
     render 'show.json.jbuilder'
   end
 
+  def destroy
+    @job = Job.find(params[:id])
+    @job.destroy
+    render json: {}
+  end
+
   private
 
     def job_params
