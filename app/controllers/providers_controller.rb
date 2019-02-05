@@ -6,7 +6,8 @@ class ProvidersController < ApplicationController
       provider_params
     )
     if @provider.save
-      redirect_to "/home"
+      # redirect_to "/home"
+      redirect_to "/"
     else
       render json: {errors: @provider.errors.full_messages}, status: :unprocessable_entity
     end

@@ -25,19 +25,17 @@ class JobsController < ApplicationController
       "completed" => "completed_jobs"
     }
 
-    if current_consumer
+    if params[:job][:user_type] == "consumer"
       current_consumer.jobs.each do |job|
         @jobs[status_key[job.status]] << job
       end
     end
-    
-    if current_provider
+    if params[:job][:user_type] == "provider"
       current_provider.jobs.each do |job|
         @jobs[status_key[job.status]] << job
       end
     end
-    # @jobs = current_user.jobs + Job.where(provider_id: current_user.id)
-    render json: {jobs: @jobs}
+    render "my_jobs.json.jbuilder"
   end
 
   def new
@@ -74,6 +72,6 @@ class JobsController < ApplicationController
   private
 
     def job_params
-      params.require(:job).permit(:requested_time, :start_time, :end_time, :provider_id, :status)
+      params.require(:job).permit(:requested_time, :start_time, :end_time, :provider_id, :status, :user_type)
     end
 end
