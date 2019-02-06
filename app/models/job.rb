@@ -13,7 +13,7 @@ class Job < ApplicationRecord
 
     p zip_codes
 
-    zip_codes.each do |zc|
+    zip_codes[:zip_codes].each do |zc|
       int_zc = zc.to_i
       if int_zc > 0 && int_zc < 100000
         consumers = Consumer.where("zip_code = '#{int_zc.to_s}'")

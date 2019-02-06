@@ -37,7 +37,7 @@ class ProvidersController < ApplicationController
   def destroy
     provider = Provider.find_by_id(params[:id])
     provider.destroy
-    redirect_to "landing_page_not_logged.html"
+    render json: {}
   end
 
   private
