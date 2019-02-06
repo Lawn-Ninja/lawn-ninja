@@ -6,8 +6,7 @@ class ProvidersController < ApplicationController
       provider_params
     )
     if @provider.save
-      # redirect_to "/home"
-      redirect_to "/"
+      render json: {}
     else
       render json: {errors: @provider.errors.full_messages}, status: :unprocessable_entity
     end
@@ -38,7 +37,7 @@ class ProvidersController < ApplicationController
   def destroy
     provider = Provider.find_by_id(params[:id])
     provider.destroy
-    redirect_to "landing_page_not_logged.html"
+    render json: {}
   end
 
   private
