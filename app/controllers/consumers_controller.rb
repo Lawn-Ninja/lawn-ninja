@@ -37,7 +37,7 @@ class ConsumersController < ApplicationController
   def destroy
     consumer = Consumer.find_by_id(params[:id])
     consumer.destroy
-    redirect_to "landing_page_not_logged.html"
+    render json: {}
   end
 
   private
