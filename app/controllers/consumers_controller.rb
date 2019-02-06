@@ -3,16 +3,6 @@ class ConsumersController < ApplicationController
 
   def create
     @consumer = Consumer.new(
-      # name: params[:name],
-      # email: params[:email],
-      # password: params[:password],
-      # password_confirmation: params[:password_confirmation],
-      # address: params[:address],
-      # city: params[:city],
-      # state: params[:state],
-      # zip_code: params[:zip_code],
-      # phone_number: params[:phone_number],
-      # provider: params[:provider]
       consumer_params
     )
     if @consumer.save
@@ -41,16 +31,6 @@ class ConsumersController < ApplicationController
     consumer_id = params[:id]
     @consumer = Consumer.find_by_id(consumer_id).tap { |consumer| consumer.update!(consumer_params)
     }
-    # @user.email = params[:email] || @user.email
-    # @user.address = params[:address] || @user.address
-    # @user.city = params[:city] || @user.city
-    # @user.state = params[:state] || @user.state
-    # @user.zip_code = params[:zip_code] || @user.zip_code
-    # @user.phone_number = params[:phone_number] || @user.phone_number
-    # @user.provider = params[:provider] || @user.provider
-    # @user.save
-    # respond_with(@user)
-    # p @user
     render json: {user: @consumer}
   end
 
