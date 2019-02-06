@@ -16,7 +16,7 @@ class ConsumersController < ApplicationController
       consumer_params
     )
     if @consumer.save
-      redirect_to "/home"
+      render json: {}
     else
       render json: {errors: @consumer.errors.full_messages}, status: :unprocessable_entity
     end
