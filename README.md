@@ -25,6 +25,31 @@
 
 Ruby version: 2.5.1
 
+## Routes for front end app
+Jobs Index - get '/jobs'
+Jobs Create - post '/jobs'
+Jobs Show - get '/jobs/:id'
+Jobs Update - put '/jobs/:id'
+Jobs Delete - delete '/jobs/:id'
+My Jobs - get '/my_jobs'
+
+Consumer Index - get '/consumers'
+Consumer Show - get '/consumers/:id'
+Consumer Update - put '/consumers/:id'
+Consumer Create - post '/consumers'
+Consumer Delete - delete '/consumers/:id'
+
+Consumer Login - post '/consumer_login'
+Consumer Logout - delete '/consumer_logout'
+
+Provider Index - get '/providers'
+Provider Show - get '/providers/:id'
+Provider Update - put '/providers/:id'
+Provider Create - post '/providers'
+Provider Delete - delete '/providers/:id'
+
+Provider Login - post '/provider_login'
+Provider Logout - delete 'provider_logout'
 
 ## Significant Gemfile Modifications
 ```ruby
