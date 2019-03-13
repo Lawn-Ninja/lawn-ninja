@@ -8,7 +8,6 @@ gem 'rack-cors', :require => 'rack/cors'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.1'
 gem "rest-client", "1.8.0"
-gem 'bootstrap', '~> 4.1.2'
 gem 'jquery-rails'
 gem 'faker'
 # Use postgresql as the database for Active Record
