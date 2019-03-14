@@ -55,16 +55,10 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # gem 'unirest'
 
 gem 'jwt'
-
+gem 'http'
 gem 'figaro'
-
 gem 'pry'
 
 gem 'responders'
-
 gem "loofah", ">= 2.2.3"
-
-gem "http"
-
 gem "rack", ">= 2.0.6"
-

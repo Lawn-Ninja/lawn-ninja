@@ -1,10 +1,10 @@
 class JobsController < ApplicationController
   def jobs_near_me
-    p "in jobs_near_me"
-    if current_user && current_user.provider
-      p current_user
-      @jobs = Job.jobs_near_me(current_user.zip_code, current_user.id) 
-      p @jobs
+    # p "in jobs_near_me"
+    if current_provider
+      # p current_provider
+      @jobs = Job.jobs_near_me(current_provider.zip_code) 
+      # p @jobs
       render "index.json.jbuilder"
     else
       render json: {jobs: []}
@@ -24,14 +24,18 @@ class JobsController < ApplicationController
       "started" => "in_progress_jobs",
       "completed" => "completed_jobs"
     }
-    current_user.jobs.each do |job|
-      @jobs[status_key[job.status]] << job
+
+    if params[:job][:user_type] == "consumer"
+      current_consumer.jobs.each do |job|
+        @jobs[status_key[job.status]] << job
+      end
     end
-    jobs_as_provider = Job.where(provider_id: current_user.id)
-    jobs_as_provider.each do |job| @jobs[status_key[job.status]] << job
+    if params[:job][:user_type] == "provider"
+      current_provider.jobs.each do |job|
+        @jobs[status_key[job.status]] << job
+      end
     end
-    # @jobs = current_user.jobs + Job.where(provider_id: current_user.id)
-    render json: {jobs: @jobs}
+    render "my_jobs.json.jbuilder"
   end
 
   def new
@@ -41,7 +45,7 @@ class JobsController < ApplicationController
   def create
     @job = Job.new(job_params)
     @job.status = "posted"
-    @job.user_id = current_user.id
+    @job.consumer_id = current_consumer.id
     if @job.save
       render json: {job: @job}
     else
@@ -54,7 +58,7 @@ class JobsController < ApplicationController
     @job = Job.find(params[:id])
 
     if @job.update_attributes(job_params)
-      render json: {job: @job}
+      render 'show.json.jbuilder'
     else
       render json: {errors: @job.errors.full_messages}, status: :unprocessible_entity
     end
@@ -65,40 +69,15 @@ class JobsController < ApplicationController
     render 'show.json.jbuilder'
   end
 
+  def destroy
+    @job = Job.find(params[:id])
+    @job.destroy
+    render json: {}
+  end
+
   private
-    def jobs_payload
-      [
-        {
-          date: Time.now,
-          time: Time.now,
-          user:
-            {
-              first_name: "Bob",
-              zip_code: 10000
-            }
-        },
-        {
-          date: Time.now,
-          time: Time.now,
-          user:
-            {
-              first_name: "Abby",
-              zip_code: 20000
-            }
-        },
-        {
-          date: Time.now,
-          time: Time.now,
-          user:
-            {
-              first_name: "Susie",
-              zip_code: 30000
-            }
-        }
-      ]
-    end
 
     def job_params
-      params.require(:job).permit(:requested_time, :start_time, :end_time, :provider_id, :status)
+      params.require(:job).permit(:requested_time, :start_time, :end_time, :provider_id, :status, :user_type)
     end
 end
