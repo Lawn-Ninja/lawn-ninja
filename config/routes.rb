@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   post '/provider_login' => 'provider_sessions#create'
   delete '/provider_logout' => 'provider_sessions#destroy'
 
-  # charges
-  resources :charges, except: [:index, :show, :edit, :update, :destroy]
+  namespace :api do
+    # charges
+    resources :charges, except: [:index, :show, :edit, :update, :destroy]
+  end
 end
