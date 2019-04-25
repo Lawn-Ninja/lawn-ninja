@@ -60,6 +60,8 @@ gem 'http'
 gem 'figaro'
 gem 'pry'
 
+gem 'stripe'
+
 gem 'responders'
 gem "loofah", ">= 2.2.3"
 gem "rack", ">= 2.0.6"
