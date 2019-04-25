@@ -75,6 +75,15 @@ class JobsController < ApplicationController
     render json: {}
   end
 
+  def invoice
+    @job = Job.find(params[:id])
+    pdf = ResumeFile.new(@job)
+    send_data pdf.render,
+      filename: "Invoice.pdf",
+      type: 'application/pdf', 
+      disposition: "inline"
+  end
+
   private
 
     def job_params
