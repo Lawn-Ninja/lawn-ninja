@@ -1,4 +1,3 @@
-require "prawn"
 require_relative "prawn-table.rb"
 
 class Invoice
@@ -14,13 +13,13 @@ class Invoice
   end
 
   def title
-    text "Invoice for Job #{@job[:id]}", align: :center, size: 24
+    text "Invoice for Job #{@job.id}", align: :center, size: 24
     move_down 20
   end
 
   def producer_info
-    text "Provider: #{@job[:provider][:first_name]} #{@job[:provider][:last_name]}"
-    text "Provider ##{@job[:provider][:id]}"
+    text "Provider: #{@job.provider.first_name} #{@job.provider.last_name}"
+    text "Provider ##{@job.provider.id}"
     move_down 10
     text "Lawn Ninja"
     text "405 N Madison Ave"
@@ -30,9 +29,9 @@ class Invoice
 
   def consumer_info
     text "Billed To:"
-    text "#{@job[:consumer][:first_name]} #{@job[:consumer][:last_name]}"
-    text "#{@job[:consumer][:address]}"
-    text "#{@job[:consumer][:city]}, #{@job[:consumer][:state]} #{@job[:consumer][:zip_code]}"
+    text "#{@job.consumer.first_name} #{@job.consumer.last_name}"
+    text "#{@job.consumer.address}"
+    text "#{@job.consumer.city}, #{@job.consumer.state} #{@job.consumer.zip_code}"
     move_down 20
   end
 

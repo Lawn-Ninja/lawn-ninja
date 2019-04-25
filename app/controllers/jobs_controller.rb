@@ -77,7 +77,7 @@ class JobsController < ApplicationController
 
   def invoice
     @job = Job.find(params[:id])
-    pdf = ResumeFile.new(@job)
+    pdf = Invoice.new(@job)
     send_data pdf.render,
       filename: "Invoice.pdf",
       type: 'application/pdf', 
