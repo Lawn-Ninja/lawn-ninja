@@ -75,6 +75,19 @@ class JobsController < ApplicationController
     render json: {}
   end
 
+  def invoice
+    @job = Job.find(params[:id])
+    if @job.status == "completed"
+      pdf = Invoice.new(@job)
+      send_data pdf.render,
+        filename: "Invoice.pdf",
+        type: 'application/pdf', 
+        disposition: "inline"
+    else
+      render html: 'Job is not Completed'
+    end
+  end
+
   private
 
     def job_params

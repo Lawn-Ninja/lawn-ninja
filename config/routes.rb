@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   patch '/jobs/:id' => 'jobs#update'
   delete '/jobs/:id' => 'jobs#destroy'
   get '/my_jobs' => 'jobs#my_jobs'
+  get '/jobs/:id/invoice' => 'jobs#invoice'
 
   # consumer profile info
   resources :consumers, except: [:new, :edit]
